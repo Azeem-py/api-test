@@ -5,14 +5,22 @@ from django.contrib.auth.password_validation import validate_password
 
 class UserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(required=True, write_only=True)
+    country = serializers.CharField(required=True,)
+    bank = serializers.CharField(required=True, )
+    phoneNumber = serializers.IntegerField(required=True)
+    accountNumber = serializers.IntegerField(required=True)
     class Meta:
         model = CustomUser
 
-        fields = ('id','username', 'email', 'password', 'password2')
+        fields = ('id','username', 'email', 'password', 'password2', 'phoneNumber', 'country', 'bank', 'accountName', 'accountNumber')
         extra_kwargs = {
             'username': {
                 'required': True, 
                 'validators': [UniqueValidator(CustomUser.objects.all(), "username is not available"),]
+            },
+            'email':{
+                'required': True, 
+                'validators': [UniqueValidator(CustomUser.objects.all(), "email is not available"),]
             },
             'email':{
                 'required': True, 
