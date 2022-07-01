@@ -1,3 +1,4 @@
+from wsgiref.validate import validator
 from rest_framework import serializers
 from .models import CustomUser
 from rest_framework.validators import UniqueValidator
@@ -29,6 +30,12 @@ class UserSerializer(serializers.ModelSerializer):
             'password':{
                 'required': True, 'write_only': True,
                 'validators': [validate_password,]
+            },
+            'phoneNumber':{ 
+                'validators': [UniqueValidator(CustomUser.objects.all(), "Phone number has used by another user"),]
+            },
+            'accountNumber':{
+                'validators': [UniqueValidator(CustomUser.objects.all(), "Account number has used by another user"),]
             },
         }
         
