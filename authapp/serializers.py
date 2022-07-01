@@ -34,9 +34,6 @@ class UserSerializer(serializers.ModelSerializer):
             'phoneNumber':{ 
                 'validators': [UniqueValidator(CustomUser.objects.all(), "Phone number has used by another user"),]
             },
-            'accountNumber':{
-                'validators': [UniqueValidator(CustomUser.objects.all(), "Account number has used by another user"),]
-            },
         }
         
         
